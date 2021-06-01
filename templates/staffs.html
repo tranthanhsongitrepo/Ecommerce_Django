@@ -6,7 +6,7 @@
     <body>
         <ul>
             {% for staff in staffs %}
-                <a> {{ staff.name }}</a>
+                <a> {{ staff.fullname.firstname }}</a>
             {% endfor %}
         </ul>
     </body>

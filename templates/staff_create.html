@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Staffs</title>
+    </head>
+    <body>
+    <form method="post">
+        {% csrf_token %}
+        {{ forms.full_name_form }}
+        {{ forms.storage_staff_form }}
+        {{ forms.addresses_form.as_table }}
+        <button type="submit">Save</button>
+    </form>
+    </body>
+</html>

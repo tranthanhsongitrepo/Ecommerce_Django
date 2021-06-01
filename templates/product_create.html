@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Staffs</title>
+    </head>
+    <body>
+    <form method="post">
+        {% csrf_token %}
+        {{ forms }}
+        <button type="submit">Save</button>
+    </form>
+    </body>
+</html>
