@@ -3,7 +3,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class Address(models.Model):
     fullAddress = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
@@ -13,9 +12,22 @@ class Address(models.Model):
         return self.fullAddress + ', ' + self.city + ', ' + self.country
 
 
-class AccountStatus(models.Model):
-    status = models.CharField(max_length=100)
-    time = models.DateTimeField(max_length=100)
+class Payment(models.Model):
+    amount = models.CharField(max_length=100)
+    additionalFee = models.CharField(max_length=100)
+
+
+class Customer(models.Model):
+    credits = models.IntegerField(max_length=100)
+
+
+class CreditCard(models.Model):
+    creditNumber = models.BigIntegerField()
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+
+
+class CreditCardPayment(Payment):
+    creditCard = models.ForeignKey(CreditCard, on_delete=models.CASCADE)
 
 
 class Fullname(models.Model):
@@ -30,6 +42,11 @@ class Person(models.Model):
     sex = models.CharField(max_length=100)
     age = models.IntegerField()
     fullname = models.ForeignKey(Fullname, on_delete=models.CASCADE)
+
+
+class AccountStatus(models.Model):
+    status = models.CharField(max_length=100)
+    time = models.DateTimeField(max_length=100)
 
 
 class Account(models.Model):
@@ -117,14 +134,6 @@ class Cart(models.Model):
     cartType = models.CharField(max_length=100)
 
 
-class Payment(models.Model):
-    additionalFee = models.CharField(max_length=100)
-
-
-class Customer(models.Model):
-    credits = models.IntegerField(max_length=100)
-
-
 class Order(models.Model):
     saleOff = models.FloatField()
     payment = models.OneToOneField(Payment, on_delete=models.CASCADE)
@@ -135,10 +144,6 @@ class ItemInCart(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-
-
-class Cash(Payment):
-    amount = models.CharField(max_length=100)
 
 
 class Credit(Payment):
@@ -191,6 +196,10 @@ class Electronic(Product):
     desc = models.CharField(max_length=100)
 
 
+class OEM(Manufacturer):
+    electronic = models.ForeignKey(Electronic, on_delete=models.CASCADE)
+
+
 class Appliance(Electronic):
     width = models.CharField(max_length=100)
     height = models.FloatField()
@@ -206,6 +215,10 @@ class Mobile(Electronic):
 class Clothing(Product):
     material = models.CharField(max_length=100)
     desc = models.CharField(max_length=100)
+
+
+class Brand(Manufacturer):
+    clothing = models.ForeignKey(Clothing, on_delete=models.CASCADE)
 
 
 class Staff(Person):
@@ -226,3 +239,13 @@ class OrderStatus(models.Model):
 
 class OrderStatusLogs(models.Model):
     orderStatus = models.ForeignKey(OrderStatus, on_delete=models.CASCADE)
+
+
+class BusinessStaff(Staff):
+    test = models.CharField(max_length=100)
+
+
+class OrderStatusChangeLogs(models.Model):
+    businessStaff = models.ForeignKey(BusinessStaff, on_delete=models.CASCADE)
+    orderStatusLogs = models.ForeignKey(
+        OrderStatusLogs, on_delete=models.CASCADE)
