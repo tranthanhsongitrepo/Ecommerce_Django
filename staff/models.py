@@ -196,10 +196,6 @@ class Electronic(Product):
     desc = models.CharField(max_length=100)
 
 
-class OEM(Manufacturer):
-    electronic = models.ForeignKey(Electronic, on_delete=models.CASCADE)
-
-
 class Appliance(Electronic):
     width = models.CharField(max_length=100)
     height = models.FloatField()
@@ -215,10 +211,6 @@ class Mobile(Electronic):
 class Clothing(Product):
     material = models.CharField(max_length=100)
     desc = models.CharField(max_length=100)
-
-
-class Brand(Manufacturer):
-    clothing = models.ForeignKey(Clothing, on_delete=models.CASCADE)
 
 
 class Staff(Person):
