@@ -208,9 +208,14 @@ class Mobile(Electronic):
     type = models.CharField(max_length=100)
 
 
+class ClothingType(models.Model):
+    name = models.CharField(max_length=100)
+
+
 class Clothing(Product):
     material = models.CharField(max_length=100)
     desc = models.CharField(max_length=100)
+    type = models.ForeignKey(ClothingType, on_delete=models.CASCADE)
 
 
 class Staff(Person):
@@ -219,10 +224,6 @@ class Staff(Person):
 
 class StorageStaff(Staff):
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
-
-
-class ClothingType(models.Model):
-    name = models.CharField(max_length=100)
 
 
 class OrderStatus(models.Model):
