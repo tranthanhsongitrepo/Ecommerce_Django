@@ -78,7 +78,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.FloatField()
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
-
+    type = models.CharField(max_length=100)
 
 class BookStatus(models.Model):
     status = models.CharField(max_length=100)
