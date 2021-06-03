@@ -201,12 +201,12 @@ class Appliance(Electronic):
     width = models.CharField(max_length=100)
     height = models.FloatField()
     length = models.FloatField()
-    type = models.CharField(max_length=100)
+    type_of_appliance = models.CharField(max_length=100)
 
 
 class Mobile(Electronic):
     dimension = models.FloatField()
-    type = models.CharField(max_length=100)
+    device_type = models.CharField(max_length=100)
 
 
 class ClothingType(models.Model):
