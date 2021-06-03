@@ -80,6 +80,9 @@ class Product(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     type = models.CharField(max_length=100)
 
+    def __str__(self):
+        return self.name
+
 
 class BookStatus(models.Model):
     status = models.CharField(max_length=100)
@@ -115,15 +118,16 @@ class Storage(models.Model):
         return str(self.address)
 
 
+class Item(models.Model):
+    saleOff = models.FloatField()
+    price = models.FloatField()
+
+
 class ProductInStock(models.Model):
     stock = models.IntegerField()
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-
-class Item(models.Model):
-    saleOff = models.FloatField()
-    productInStock = models.OneToOneField(ProductInStock, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
 
 
 class Comment(models.Model):
