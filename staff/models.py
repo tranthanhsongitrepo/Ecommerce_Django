@@ -17,7 +17,7 @@ class Payment(models.Model):
     additionalFee = models.CharField(max_length=100)
 
 
-class Customer(models.Model):
+class Customer(Person):
     credits = models.IntegerField(max_length=100)
 
 
@@ -38,15 +38,15 @@ class Fullname(models.Model):
         return self.firstname + " " + self.lastname
 
 
+class AccountStatus(models.Model):
+    status = models.CharField(max_length=100)
+    time = models.DateTimeField(max_length=100)
+
+
 class Person(models.Model):
     sex = models.CharField(max_length=100)
     age = models.IntegerField()
     fullname = models.ForeignKey(Fullname, on_delete=models.CASCADE)
-
-
-class AccountStatus(models.Model):
-    status = models.CharField(max_length=100)
-    time = models.DateTimeField(max_length=100)
 
 
 class Account(models.Model):
