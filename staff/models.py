@@ -129,6 +129,7 @@ class Item(models.Model):
 class Comment(models.Model):
     content = models.CharField(max_length=100)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 
 
 class Cart(models.Model):
