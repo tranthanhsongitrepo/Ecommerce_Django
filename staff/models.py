@@ -80,6 +80,7 @@ class Product(models.Model):
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
     type = models.CharField(max_length=100)
 
+
 class BookStatus(models.Model):
     status = models.CharField(max_length=100)
 
@@ -215,7 +216,7 @@ class ClothingType(models.Model):
 class Clothing(Product):
     material = models.CharField(max_length=100)
     desc = models.CharField(max_length=100)
-    type = models.ForeignKey(ClothingType, on_delete=models.CASCADE)
+    type_of_clothing = models.ForeignKey(ClothingType, on_delete=models.CASCADE)
 
 
 class Staff(Person):
