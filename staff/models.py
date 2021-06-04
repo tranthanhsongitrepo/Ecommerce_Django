@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -25,45 +26,13 @@ class Fullname(models.Model):
         return self.firstname + " " + self.lastname
 
 
-class Person(models.Model):
-    sex = models.CharField(max_length=100)
-    age = models.IntegerField()
-    fullname = models.ForeignKey(Fullname, on_delete=models.CASCADE)
-
-
-class Customer(Person):
-    credits = models.IntegerField(max_length=100)
-
-
 class CreditCard(models.Model):
     creditNumber = models.BigIntegerField()
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class CreditCardPayment(Payment):
     creditCard = models.ForeignKey(CreditCard, on_delete=models.CASCADE)
-
-
-class AccountStatus(models.Model):
-    status = models.CharField(max_length=100)
-    time = models.DateTimeField(max_length=100)
-
-
-class Account(models.Model):
-    username = models.CharField(max_length=100)
-    password = models.CharField(max_length=100)
-    role = models.CharField(max_length=100)
-    person = models.ForeignKey(Person, on_delete=models.CASCADE)
-    accountStatus = models.OneToOneField(AccountStatus, on_delete=models.CASCADE)
-
-
-class User(models.Model):
-    account = models.OneToOneField(Account, on_delete=models.CASCADE)
-    address = models.ForeignKey(Address, on_delete=models.CASCADE)
-
-
-class Admin(User):
-    company = models.CharField(max_length=100)
 
 
 class Manufacturer(models.Model):
@@ -99,7 +68,10 @@ class Book(Product):
     bookDescription = models.ForeignKey(BookDescription, on_delete=models.CASCADE)
 
 
-class Author(Person):
+class Author(models.Model):
+    sex = models.CharField(max_length=100)
+    age = models.IntegerField()
+    fullname = models.ForeignKey(Fullname, on_delete=models.CASCADE)
     organization = models.CharField(max_length=100)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
@@ -134,23 +106,25 @@ class ProductInStock(models.Model):
 class Comment(models.Model):
     content = models.CharField(max_length=100)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Cart(models.Model):
     cartType = models.CharField(max_length=100)
+    user = models.ForeignKey(User, unique=True, on_delete=models.CASCADE)
 
 
 class Order(models.Model):
     saleOff = models.FloatField()
     payment = models.OneToOneField(Payment, on_delete=models.CASCADE)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class ItemInCart(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, null=True)
+    quantity = models.IntegerField()
 
 
 class Credit(Payment):
@@ -225,7 +199,7 @@ class Clothing(Product):
     type_of_clothing = models.ForeignKey(ClothingType, on_delete=models.CASCADE)
 
 
-class Staff(Person):
+class Staff(User):
     workAddress = models.ForeignKey(Address, on_delete=models.CASCADE)
 
 

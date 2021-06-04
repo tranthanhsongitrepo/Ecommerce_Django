@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from staff.models import StorageStaff, Storage, Fullname, Address, Product, Manufacturer
+from staff.models import StorageStaff, Storage, Fullname, Address, Product, Manufacturer, Item, ItemInCart, Cart
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -14,3 +14,6 @@ admin.site.register(Address)
 admin.site.register(StorageStaff)
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Manufacturer)
+admin.site.register(Item)
+admin.site.register(ItemInCart)
+admin.site.register(Cart)
