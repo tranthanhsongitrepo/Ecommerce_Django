@@ -121,6 +121,7 @@ class Storage(models.Model):
 class Item(models.Model):
     saleOff = models.FloatField()
     price = models.FloatField()
+    product = models.OneToOneField(Product, on_delete=models.CASCADE)
 
 
 class ProductInStock(models.Model):
