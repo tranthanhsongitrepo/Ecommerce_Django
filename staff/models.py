@@ -14,8 +14,8 @@ class Address(models.Model):
 
 
 class Payment(models.Model):
-    amount = models.CharField(max_length=100)
-    additionalFee = models.CharField(max_length=100)
+    amount = models.FloatField(max_length=100)
+    additionalFee = models.FloatField(max_length=100)
 
 
 class Fullname(models.Model):
@@ -37,7 +37,7 @@ class CreditCardPayment(Payment):
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=100)
-    ad = models.ForeignKey(Address, on_delete=models.CASCADE)
+    ad = models.OneToOneField(Address, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name + " " + str(self.ad)
@@ -77,7 +77,7 @@ class Author(models.Model):
 
 
 class ProductImage(models.Model):
-    path = models.CharField(max_length=100)
+    image = models.ImageField()
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
 
@@ -111,13 +111,18 @@ class Comment(models.Model):
 
 class Cart(models.Model):
     cartType = models.CharField(max_length=100)
-    user = models.ForeignKey(User, unique=True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
+
+
+class OrderStatus(models.Model):
+    status = models.CharField(max_length=100)
 
 
 class Order(models.Model):
     saleOff = models.FloatField()
     payment = models.OneToOneField(Payment, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.ForeignKey(OrderStatus, on_delete=models.CASCADE)
 
 
 class ItemInCart(models.Model):
@@ -205,10 +210,6 @@ class Staff(User):
 
 class StorageStaff(Staff):
     storage = models.ForeignKey(Storage, on_delete=models.CASCADE)
-
-
-class OrderStatus(models.Model):
-    status = models.CharField(max_length=100)
 
 
 class OrderStatusLogs(models.Model):
