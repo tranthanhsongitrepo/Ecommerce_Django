@@ -17,6 +17,20 @@ class Payment(models.Model):
     additionalFee = models.CharField(max_length=100)
 
 
+class Fullname(models.Model):
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.firstname + " " + self.lastname
+
+
+class Person(models.Model):
+    sex = models.CharField(max_length=100)
+    age = models.IntegerField()
+    fullname = models.ForeignKey(Fullname, on_delete=models.CASCADE)
+
+
 class Customer(Person):
     credits = models.IntegerField(max_length=100)
 
@@ -30,23 +44,9 @@ class CreditCardPayment(Payment):
     creditCard = models.ForeignKey(CreditCard, on_delete=models.CASCADE)
 
 
-class Fullname(models.Model):
-    firstname = models.CharField(max_length=100)
-    lastname = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.firstname + " " + self.lastname
-
-
 class AccountStatus(models.Model):
     status = models.CharField(max_length=100)
     time = models.DateTimeField(max_length=100)
-
-
-class Person(models.Model):
-    sex = models.CharField(max_length=100)
-    age = models.IntegerField()
-    fullname = models.ForeignKey(Fullname, on_delete=models.CASCADE)
 
 
 class Account(models.Model):
