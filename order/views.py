@@ -20,6 +20,8 @@ def add_to_cart(request, id):
     current_user = request.user  # Access User Session information
     item = Item.objects.get(pk=id)
 
+
+
     cart = Cart.objects.get(user=current_user)
     checkinvariant = ItemInCart.objects.filter(cart=cart,
                                                item=item)  # Check product in shopcart

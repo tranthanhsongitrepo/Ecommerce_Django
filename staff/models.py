@@ -1,8 +1,10 @@
-from django.contrib.auth.models import User
+
 from django.db import models
 
-
+from django.contrib.auth.models import AbstractUser
 # Create your models here.
+from django.utils.safestring import mark_safe
+
 
 class Address(models.Model):
     fullAddress = models.CharField(max_length=100)
@@ -11,7 +13,8 @@ class Address(models.Model):
 
     def __str__(self):
         return self.fullAddress + ', ' + self.city + ', ' + self.country
-
+class User(AbstractUser):
+    address=models.OneToOneField(Address,on_delete=models.CASCADE)
 
 class Payment(models.Model):
     amount = models.FloatField(max_length=100)
@@ -44,14 +47,32 @@ class Manufacturer(models.Model):
 
 
 class Product(models.Model):
+    TYPE = (
+        ('1','Quần Áo'),
+        ('2','Sách'),
+        ('3','Điện Tử')
+    )
+    STATUS = (
+        ('True', 'Đang Kinh Doanh'),
+        ('False', 'Ngừng Kinh Doanh'),
+    )
+
     name = models.CharField(max_length=100)
     price = models.FloatField()
+    image = models.ImageField()
     manufacturer = models.ForeignKey(Manufacturer, on_delete=models.CASCADE)
-    type = models.CharField(max_length=100)
+    type = models.CharField(max_length=10 , choices=TYPE)
+    status = models.CharField(max_length=10 , choices=STATUS)
 
     def __str__(self):
         return self.name
-
+    def image_tag(self):
+        if self.image.url is not None:
+            return mark_safe('<img src="{}" height="50"/>'.format('/static'+self.image.url))
+        else:
+            return ""
+    # def category(self):
+    #     if self.TYPE
 
 class BookStatus(models.Model):
     status = models.CharField(max_length=100)
@@ -110,8 +131,15 @@ class Comment(models.Model):
 
 
 class Cart(models.Model):
+    STATUS = (
+        (1, 'active'),
+        (2, 'inactive'),
+    )
+
     cartType = models.CharField(max_length=100)
-    user = models.OneToOneField(User, unique=True, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    status=models.IntegerField(max_length=10,choices=STATUS)
+
 
 
 class OrderStatus(models.Model):
@@ -123,6 +151,7 @@ class Order(models.Model):
     payment = models.OneToOneField(Payment, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.ForeignKey(OrderStatus, on_delete=models.CASCADE)
+
 
 
 class ItemInCart(models.Model):
@@ -196,6 +225,8 @@ class Mobile(Electronic):
 
 class ClothingType(models.Model):
     name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
 
 
 class Clothing(Product):
