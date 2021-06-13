@@ -4,7 +4,6 @@ from django.contrib import admin
 from staff.models import *
 from product.models import *
 from order.models import *
-from item.models import *
 from user.models import *
 
 

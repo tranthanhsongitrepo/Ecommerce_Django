@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 
 from order.models import *
-from item.models import *
+from product.models import *
 
 
 class ItemInCartForm(ModelForm):
