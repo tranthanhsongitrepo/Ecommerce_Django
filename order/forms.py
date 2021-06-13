@@ -1,6 +1,7 @@
 from django.forms import ModelForm
 
-from staff.models import ItemInCart, Order
+from order.models import *
+from item.models import *
 
 
 class ItemInCartForm(ModelForm):

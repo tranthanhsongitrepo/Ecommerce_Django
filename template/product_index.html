@@ -17,7 +17,7 @@
 					<div class="tab-content">
 						<div id="home" class="tab-pane active">
 							<div id="features-curosel" class="indicator-style">
-                                {% for p in products %}
+                                {% for p in items %}
                                     <div class="col-md-12">
                                         <div class="single-product">
                                             <div class="product-image">
@@ -30,7 +30,7 @@
                                                 <span class="sale-text">Sale</span>
                                             </span>
                                             <div class="product-action">
-                                                <h4><a href="{% url 'productDetail' p.product.id %}">{{ p.product.name }} </a></h4>
+                                                <h4><a href="{% url 'product-details' p.id %}">{{ p.product.name }} </a></h4>
                                                 <ul class="pro-rating">
                                                     <li class="pro-ratcolor"><i class="fa fa-star"></i></li>
                                                     <li class="pro-ratcolor"><i class="fa fa-star"></i></li>

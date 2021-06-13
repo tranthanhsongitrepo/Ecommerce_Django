@@ -10,10 +10,6 @@ from order.forms import ItemInCartForm, OrderForm
 from staff.models import *
 
 
-def index(request):
-    return HttpResponse("Order Page")
-
-
 @login_required(login_url='/login')  # Check login
 def add_to_cart(request, id):
     url = request.META.get('HTTP_REFERER')  # get last url

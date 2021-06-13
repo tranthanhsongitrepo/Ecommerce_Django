@@ -15,7 +15,6 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -26,7 +25,6 @@ SECRET_KEY = 'django-insecure-t9#iwzm4z1*n*n1s1tcw)gmg7jqg1)lmey!22di0#p$kn47uy9
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -39,11 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'staff',
-    'my_app',
-    'website'
+    'user',
+    'product',
+    'order',
 ]
 BOOTSTRAP_ADMIN_SIDEBAR_MENU = True
-
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -60,7 +58,7 @@ ROOT_URLCONF = 'djangoProject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templatesAdmin', BASE_DIR/ 'template']
+        'DIRS': [BASE_DIR / 'templatesAdmin', BASE_DIR / 'template']
         ,
         'APP_DIRS': True,
         'OPTIONS': {
@@ -76,17 +74,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'djangoProject.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ecomerce_tdq',
+        'NAME': 'boec',
         'USER': 'root',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PASSWORD': 'password',
+        'HOST': 'localhost',  # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }
 }
@@ -94,7 +91,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
-AUTH_USER_MODEL='staff.User'
+AUTH_USER_MODEL = 'user.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -111,7 +108,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -125,7 +121,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
@@ -133,7 +128,7 @@ STATIC_URL = '/static/'
 
 # STATIC_ROOT = 'staticAdmin'
 
-STATICFILES_DIRS=[
+STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "template")
 ]
 

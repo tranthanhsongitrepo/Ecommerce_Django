@@ -13,10 +13,5 @@ urlpatterns = [
     # path('update_product/<int:product_id>', update_product, name='update_product'),
     path('test', test_my_app.index, name='test'),
     path('get-product', test_my_app.getProduct, name='getProduct'),
-    path('', website_view.home, name='home'),
-    path('productDetail/<int:product_id>',website_view.detailProduct,name='productDetail'),
-    path('add-to-cart/<int:id>',website_view.add_to_cart,name='add-to-cart'),
-    path('shopping-cart',website_view.shoppingCart,name='shopping-cart'),
-    path('check-out',website_view.order_item,name='check-out'),
-    path('commnet/<int:id>',website_view.commnet,name="comment")
+
 ]
