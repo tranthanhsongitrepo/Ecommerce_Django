@@ -31,3 +31,14 @@ from .models import Fullname
 #     product = Product.objects.get(pk=product_id)
 #     product.delete()
 #     return redirect('search_products')
+# def index(request):
+#     if request.method == 'GET':
+#         data = User.objects.all()
+#         test1 = serializers.serialize("json", data)
+#     return JsonResponse({"test": test1}, content_type="application/json", status=200);
+#
+#
+# def getProduct(request):
+#     if request.method == 'GET':
+#         data = serializers.serialize("json", Product.objects.all())
+#     return JsonResponse({"test": data}, content_type="application/json", status=200);

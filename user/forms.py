@@ -1,7 +1,35 @@
 from django.contrib.auth import get_user_model
 from django import forms
+from django.forms import ModelChoiceField
+from django.utils.translation import ugettext_lazy as _
+from staff.models import Address
 
 User = get_user_model()
+
+
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        exclude = ['is_staff', 'is_active', 'is_superuser', 'groups', 'user_permissions', 'password']
+        labels = {
+            'first_name': _('Họ'),
+            'last_name': _('Tên'),
+            'last_login': _('Lần đăng nhập cuối'),
+            'username': _('Tên tài khoản'),
+            'email': _('Email'),
+            'date_joined': _('Ngày tham gia'),
+            'address': _('Địa chỉ')
+        }
+
+    disabled_fields = ['date_joined', 'last_login', 'address']
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            attrs = {'class': 'form-row'}
+            if field in self.disabled_fields:
+                attrs['readonly'] = 'readonly'
+            self.fields[field].widget.attrs.update(attrs)
 
 
 class LoginForm(forms.Form):

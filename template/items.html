@@ -31,18 +31,18 @@
                     <div class="wishlist-left-area">
                         <div class="category">
                             <h4>CATEGORY</h4>
-                            <form method="GET" action="{% url 'search-products' %}">
+                            <form method="GET" action="{% url 'search-item' %}">
                                 {% csrf_token %}
                                 <div class="category-list">
                                     <ul>
                                         <li>
-                                            <a href="{% url 'search-products' %}?product_name={{ request.GET.product_name }}&type=1&price={{ request.GET.price }}"><i class="fa fa-angle-double-right"></i>Quần áo <span>(5)</span></a>
+                                            <a href="{% url 'search-item' %}?product_name={{ request.GET.product_name }}&type=1&price={{ request.GET.price }}"><i class="fa fa-angle-double-right"></i>Quần áo <span>(5)</span></a>
                                         </li>
                                         <li>
-                                            <a href="{% url 'search-products' %}?product_name={{ request.GET.product_name }}&type=2&price={{ request.GET.price }}"><i class="fa fa-angle-double-right"></i>Sách <span>(8)</span></a>
+                                            <a href="{% url 'search-item' %}?product_name={{ request.GET.product_name }}&type=2&price={{ request.GET.price }}"><i class="fa fa-angle-double-right"></i>Sách <span>(8)</span></a>
                                         </li>
                                         <li>
-                                            <a href="{% url 'search-products' %}?product_name={{ request.GET.product_name }}&type=3&price={{ request.GET.price }}"><i class="fa fa-angle-double-right"></i>Điện tử <span>(7)</span></a>
+                                            <a href="{% url 'search-item' %}?product_name={{ request.GET.product_name }}&type=3&price={{ request.GET.price }}"><i class="fa fa-angle-double-right"></i>Điện tử <span>(7)</span></a>
                                         </li>
                                     </ul>
                                 </div>
@@ -216,6 +216,20 @@
                                     </div>
                                     {% endfor %}
                                 </div>
+                                   <span class="step-links">
+                                        {% if items.has_previous %}
+                                            <a href="?page=1">&laquo; về trang đầu</a>
+                                            <a href="?page={{ items.previous_page_number }}">trước</a>
+                                        {% endif %}
+
+                                        <span class="current">
+                                            Trang {{ items.number }} / {{ items.paginator.num_pages }}.
+                                        </span>
+
+                                        {% if items.has_next %}
+                                            <a href="?page={{ items.next_page_number }}">tiếp</a>
+                                        {% endif %}
+                                    </span>
                                 <div id="list" class="tab-pane">
                                     <div class="row">
                                         <div class="col-md-12">

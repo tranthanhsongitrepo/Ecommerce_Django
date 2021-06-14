@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 from product.forms import ProductForm, ClothingForm
-from product.models import Product, Clothing, Book, Electronic
+from product.models import Clothing, Book, Electronic, Item, Manufacturer
 
 
 class ProductAdmin(admin.ModelAdmin):
@@ -25,3 +25,5 @@ class ElectronicAdmin(ProductAdmin):
 admin.site.register(Clothing, ClothingAdmin)
 admin.site.register(Book, BookAdmin)
 admin.site.register(Electronic, ElectronicAdmin)
+admin.site.register(Item)
+admin.site.register(Manufacturer)

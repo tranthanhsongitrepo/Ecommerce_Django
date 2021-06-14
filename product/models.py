@@ -142,3 +142,5 @@ class Comment(models.Model):
     content = models.CharField(max_length=100)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
+    rating = models.IntegerField()
+    sentiment = models.IntegerField()

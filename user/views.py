@@ -1,9 +1,10 @@
 from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from staff.models import Address
-from user.forms import LoginForm, RegisterForm
+from user.forms import LoginForm, RegisterForm, UserForm
 
 User = get_user_model()
 
@@ -23,6 +24,7 @@ def login_view(request):
     return render(request, 'login.html', {'login_form': form})
 
 
+@login_required(login_url='/login')  # Check login
 def logout_view(request):
     logout(request)
     return redirect('/')
@@ -65,3 +67,9 @@ def register_view(request):
             request.session['registration_error'] = True
 
     return render(request, 'register.html', {'register_form': form})
+
+
+@login_required(login_url='/login')  # Check login
+def account_details_view(request):
+    user_form = UserForm(instance=request.user)
+    return render(request, 'account.html', {'user_form': user_form})

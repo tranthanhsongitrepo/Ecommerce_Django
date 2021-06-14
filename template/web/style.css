@@ -2886,14 +2886,16 @@ padding: 15px;width:100%}
 .table-bottom-area .bottom-button {
   float: right;
 }
-.table-bottom-area .bottom-button > a, .shopingcart-bottom-area a, .discount-middle > a {
+.table-bottom-area .bottom-button > a, button, .shopingcart-bottom-area a, .discount-middle > a {
   border: 1px solid #666666;
   border-radius: 20px;
   color: #666666;
   font-weight: 500;
   margin-left: 5px;
   padding: 10px 25px;
+  background-color: white;
 }
+
 /*----------------------------------------*/
 /*    14. Shoping Cart Page Css
 /*----------------------------------------*/

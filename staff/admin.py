@@ -14,8 +14,3 @@ class OrderAdmin(admin.ModelAdmin):
 admin.site.register(Storage)
 admin.site.register(Fullname)
 admin.site.register(Address)
-admin.site.register(Manufacturer)
-admin.site.register(Item)
-admin.site.register(ItemInCart)
-admin.site.register(Cart)
-admin.site.register(Order)

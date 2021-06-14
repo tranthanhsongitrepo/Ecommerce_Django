@@ -16,5 +16,4 @@ class Cart(models.Model):
     )
 
     cart_type = models.CharField(max_length=100)
-    status = models.IntegerField(max_length=10, choices=STATUS)
     user = models.OneToOneField(User, on_delete=models.CASCADE)

@@ -40,7 +40,7 @@
 								</div>
                                 {% else %}
 								<div class="current">
-									<span><a href=#>{{ user.username }}</a></span>
+									<span><a href={% url 'account-details' %}>{{ user.username }}</a></span>
 								</div>
                                 <div class="current">
 									<span><a href={% url 'logout'%}>LOG OUT</a></span>
