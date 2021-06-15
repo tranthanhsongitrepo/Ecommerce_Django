@@ -75,11 +75,6 @@ class BookStatus(models.Model):
     status = models.CharField(max_length=100)
 
 
-class BookDescription(models.Model):
-    font = models.IntegerField()
-    book_status = models.OneToOneField(BookStatus, on_delete=models.CASCADE)
-
-
 class Author(models.Model):
     sex = models.CharField(max_length=100)
     age = models.IntegerField()
@@ -92,13 +87,13 @@ class Book(Product):
         super().__init__(*args, **kwargs)
         self.type = 2
 
-    bookDescription = models.ForeignKey(BookDescription, on_delete=models.CASCADE)
+    bookDescription = models.ForeignKey(BookStatus, on_delete=models.CASCADE)
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
 
 
 class BookGenre(models.Model):
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
-    book_description = models.ForeignKey(BookDescription, on_delete=models.CASCADE)
+    book_description = models.ForeignKey(BookStatus, on_delete=models.CASCADE)
 
 
 class Electronic(Product):
@@ -141,6 +136,7 @@ class Clothing(Product):
 class Comment(models.Model):
     content = models.CharField(max_length=100)
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True, blank=True)
     customer = models.ForeignKey(User, on_delete=models.CASCADE)
     rating = models.IntegerField()
-    sentiment = models.IntegerField()
+    sentiment = models.IntegerField(null=True)

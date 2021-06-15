@@ -30,7 +30,7 @@ def detailProduct(request, item_id):
     item = Item.objects.get(pk=item_id)
 
     if request.method == 'POST':
-        commnet = Comment(customer=request.user, item=item, content=request.POST['content'])
+        commnet = Comment(customer=request.user, item=item, content=request.POST['content'], rating=request.POST['rating'], )
         commnet.save()
 
     product = item.product
@@ -43,10 +43,18 @@ def detailProduct(request, item_id):
         product = Electronic.objects.get(pk=product.id)
     comments = Comment.objects.filter(item=item)
 
+    s = 0
+    if len(comments) != 0:
+        for comment in comments:
+            s += int(comment.rating)
+        s /= len(comments)
+        s = round(s)
+
     context = {
         'item': item,
         'comments': comments,
-        'products': product
+        'products': product,
+        'rating': s
     }
 
     return render(request, 'product_detail.html', context)
